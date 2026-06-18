@@ -44,7 +44,6 @@ class ClueInline(admin.StackedInline):
         'clue_type',
         'content_text',
         'content_image',
-        'content_audio',
     )
 
     class Media:
@@ -100,7 +99,6 @@ class MovieAdmin(admin.ModelAdmin):
             'fields': (
                 ('poster_url', 'poster_preview'),
                 'iconic_quote',
-                'spotify_track_id',
             )
         }),
         ('Estado en el sistema', {
@@ -131,7 +129,7 @@ class MovieAdmin(admin.ModelAdmin):
             try:
                 existing_ids = set(Movie.objects.values_list('tmdb_id', flat=True))
                 tmdb = TMDbClient()
-                builder = MovieBuilder(fetch_spotify=True)
+                builder = MovieBuilder()
                 candidate_ids = tmdb.discover_movies_mixed(
                     count=count * 3, existing_ids=existing_ids
                 )
@@ -140,8 +138,8 @@ class MovieAdmin(admin.ModelAdmin):
                     if fetched >= count:
                         break
                     try:
-                        movie, created = builder.build_from_tmdb_id(tmdb_id)
-                        if movie and created:
+                        movie, was_created = builder.build_from_tmdb_id(tmdb_id)
+                        if movie and was_created:
                             fetched += 1
                     except Exception:
                         pass
@@ -418,7 +416,5 @@ class ClueAdmin(admin.ModelAdmin):
             return obj.content_text[:60] + ('…' if len(obj.content_text) > 60 else '')
         if obj.content_image:
             return format_html('<em>🖼 Imagen: {}</em>', obj.content_image.name)
-        if obj.content_audio:
-            return format_html('<em>🎵 Audio: {}</em>', obj.content_audio.name)
         return '(vacía)'
     resumen_contenido.short_description = 'Contenido'

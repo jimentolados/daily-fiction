@@ -12,7 +12,7 @@
 
 **Daily Fiction** es un juego de trivia cinematográfica diaria inspirado en Wordle. Cada día se publica una película diferente y el jugador dispone de 4 pistas progresivas para adivinarla — de la más críptica a la más obvia. Cuanto antes aciertes, más puntos sumas al ranking mensual.
 
-Las pistas pueden ser: fotograma, fragmento de banda sonora (30 s), director, actor principal, año, puntuación en Rotten Tomatoes, número de Óscars, frase icónica, género, duración, país de producción o guionista.
+Las pistas pueden ser: fotograma, director, actor principal, año, puntuación en Rotten Tomatoes, número de Óscars, frase icónica, género, duración, país de producción o guionista.
 
 ---
 
@@ -24,7 +24,7 @@ Las pistas pueden ser: fotograma, fragmento de banda sonora (30 s), director, ac
 | Auth | JWT (simplejwt) · Google OAuth 2.0 |
 | Base de datos | PostgreSQL 16 (Docker / desarrollo) · MariaDB 10.4 (producción) |
 | Frontend | HTML5 · CSS3 · JavaScript vanilla |
-| APIs externas | TMDb · OMDb · Spotify · Wikidata |
+| APIs externas | TMDb · OMDb · Wikidata |
 | Infraestructura | Docker · docker-compose |
 | CI | GitHub Actions |
 
@@ -33,12 +33,12 @@ Las pistas pueden ser: fotograma, fragmento de banda sonora (30 s), director, ac
 ## Características
 
 - **Quiz diario** — una película nueva cada día, igual para todos los jugadores
-- **4 pistas progresivas** — fotograma, audio de banda sonora y datos de la película
+- **4 pistas progresivas** — fotograma y datos de la película (director, año, Rotten Tomatoes, etc.)
 - **Juego anónimo** — se puede jugar sin cuenta (sesión por `localStorage`)
 - **Ranking mensual** — global, por país y por ciudad; se resetea el 1 de cada mes
 - **Google OAuth** — registro e inicio de sesión con Google en un clic
 - **Admin personalizado** — panel de Django con picker de fotogramas TMDb y auto-relleno de pistas
-- **Integración Spotify** — fragmentos de 30 s de banda sonora buscados automáticamente
+
 
 ---
 
@@ -73,7 +73,7 @@ cd daily-fiction
 
 # 2. Copiar variables de entorno
 cp backend/.env.example backend/.env
-# Edita backend/.env con tus claves de TMDb, OMDb, Spotify y Google OAuth
+# Edita backend/.env con tus claves de TMDb, OMDb y Google OAuth
 
 # 3. Levantar los servicios
 docker compose up
@@ -138,7 +138,6 @@ Copia `backend/.env.example` a `backend/.env` y rellena:
 | `DB_NAME` · `DB_USER` · `DB_PASSWORD` · `DB_HOST` · `DB_PORT` | Conexión a la BD |
 | `TMDB_API_KEY` | [themoviedb.org](https://www.themoviedb.org/settings/api) |
 | `OMDB_API_KEY` | [omdbapi.com](https://www.omdbapi.com/apikey.aspx) |
-| `SPOTIFY_CLIENT_ID` · `SPOTIFY_CLIENT_SECRET` | [Spotify for Developers](https://developer.spotify.com/dashboard) |
 | `GOOGLE_CLIENT_ID` · `GOOGLE_CLIENT_SECRET` | [Google Cloud Console](https://console.cloud.google.com/) |
 
 ---
@@ -154,7 +153,7 @@ daily-fiction/
 │   │   ├── movies/       # Movie, DailyTest, Clue, admin personalizado
 │   │   ├── quiz/         # GameSession, GuessAttempt, scoring, constants
 │   │   ├── ranking/      # MonthlyScore, Achievement, rankings con Window
-│   │   └── integrations/ # Clientes TMDb, OMDb, Spotify · management commands
+│   │   └── integrations/ # Clientes TMDb, OMDb, Wikidata · management commands
 │   ├── config/
 │   │   └── settings/     # base · local · production
 │   ├── Dockerfile

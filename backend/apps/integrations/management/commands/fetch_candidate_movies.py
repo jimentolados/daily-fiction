@@ -13,7 +13,7 @@ class Command(BaseCommand):
     help = (
         'Descarga películas candidatas desde TMDb para el mes siguiente. '
         'Se ejecuta automáticamente el día 15 de cada mes. '
-        'Descarga ~62 películas para que el admin elija las 31 del mes.'
+        'Descarga ~62 películas para que el sistema elija las 31 del mes.'
     )
 
     def add_arguments(self, parser):
@@ -22,11 +22,6 @@ class Command(BaseCommand):
             type=int,
             default=TARGET_CANDIDATES,
             help=f'Número de candidatas a descargar (por defecto: {TARGET_CANDIDATES})',
-        )
-        parser.add_argument(
-            '--no-spotify',
-            action='store_true',
-            help='Omitir búsqueda de Spotify (útil si no se tiene la API configurada)',
         )
         parser.add_argument(
             '--year-from',
@@ -49,38 +44,25 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         count = options['count']
-        fetch_spotify = not options['no_spotify']
-        year_from = options['year_from']
-        min_votes = options['min_votes']
-        min_rating = options['min_rating']
 
         self.stdout.write(self.style.NOTICE(
             f'\nIniciando descarga de {count} películas candidatas...'
         ))
 
-        # Obtener los tmdb_ids ya existentes en la BD para no duplicar
         existing_ids = set(Movie.objects.values_list('tmdb_id', flat=True))
-        # IDs usados en el último año: no repetir
         used_ids = set(Movie.objects.filter(is_used=True).values_list('tmdb_id', flat=True))
 
         tmdb = TMDbClient()
-        builder = MovieBuilder(fetch_spotify=fetch_spotify)
+        builder = MovieBuilder()
 
-        collected_ids = []
-        page = 1
-
-        # Recolectar IDs con estrategia mixta (populares + cine de culto + joyas)
         skip_ids = existing_ids | used_ids
         collected_ids = tmdb.discover_movies_mixed(count=count * 2, existing_ids=skip_ids)
 
-        # Limitar al número solicitado
         ids_to_fetch = collected_ids[:count]
 
-        self.stdout.write(f'  {len(ids_to_fetch)} IDs nuevos encontrados en TMDb.')
-        self.stdout.write(f'  Spotify: {"activado" if fetch_spotify else "desactivado"}\n')
+        self.stdout.write(f'  {len(ids_to_fetch)} IDs nuevos encontrados en TMDb.\n')
 
-        # Descargar y construir las películas
-        created, updated, errors = builder.build_batch(ids_to_fetch, fetch_spotify=fetch_spotify)
+        created, updated, errors = builder.build_batch(ids_to_fetch)
 
         self.stdout.write(self.style.SUCCESS(
             f'\nDescarga completada:'
@@ -95,5 +77,5 @@ class Command(BaseCommand):
                 self.stdout.write(f"  TMDb ID {e['tmdb_id']}: {e['error']}")
 
         self.stdout.write(
-            f'\nAccede al admin para revisar y seleccionar las películas del mes próximo.'
+            f'\nEjecuta auto_schedule_tests para programar los próximos tests.'
         )

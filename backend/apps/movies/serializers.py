@@ -6,13 +6,12 @@ class ClueSerializer(serializers.ModelSerializer):
     """Pista revelada al usuario. Nunca incluye datos de la película."""
     clue_type_display = serializers.CharField(source='get_clue_type_display', read_only=True)
     content_image = serializers.SerializerMethodField()
-    content_audio = serializers.FileField(use_url=True)
 
     class Meta:
         model = Clue
         fields = (
             'order', 'clue_type', 'clue_type_display',
-            'content_text', 'content_image', 'content_audio',
+            'content_text', 'content_image',
         )
 
     def get_content_image(self, obj):

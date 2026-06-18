@@ -1,7 +1,6 @@
 /* ─── LÓGICA DEL QUIZ ───────────────────────────────────────────────────────── */
 
 let quizState = null;
-let audioPlayer = null;
 let autocomplete = null;
 
 async function initQuiz() {
@@ -137,21 +136,13 @@ function renderCurrentClue(clue) {
 
 function renderClueContent(clue, body) {
   if (!body) return;
-  const { clue_type, content_text, content_image, content_audio } = clue;
+  const { clue_type, content_text, content_image } = clue;
 
   if (clue_type === 'IMAGE' && content_image) {
     body.innerHTML = `
       <div class="clue-image-wrap">
         <img class="clue-image" src="${content_image}" alt="Fotograma de la película" loading="lazy">
       </div>`;
-    return;
-  }
-
-  if (clue_type === 'AUDIO' && content_audio) {
-    body.innerHTML = `<div id="audio-player-mount"></div>`;
-    if (audioPlayer) audioPlayer.destroy();
-    audioPlayer = new AudioPlayer('audio-player-mount');
-    audioPlayer.render(content_audio);
     return;
   }
 
@@ -170,7 +161,6 @@ function renderClueContent(clue, body) {
 
 function clueContentText(clue) {
   if (clue.clue_type === 'IMAGE') return '📷 Fotograma';
-  if (clue.clue_type === 'AUDIO') return '🎵 Fragmento de audio';
   return clue.content_text || '—';
 }
 

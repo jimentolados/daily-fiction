@@ -88,7 +88,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Archivos de medios (audio, imágenes subidas por admins)
+# Archivos de medios (imágenes subidas por admins)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -133,8 +133,6 @@ AUTHENTICATION_BACKENDS = [
 # APIs externas
 TMDB_API_KEY = config('TMDB_API_KEY', default='')
 OMDB_API_KEY = config('OMDB_API_KEY', default='')
-SPOTIFY_CLIENT_ID = config('SPOTIFY_CLIENT_ID', default='')
-SPOTIFY_CLIENT_SECRET = config('SPOTIFY_CLIENT_SECRET', default='')
 
 # Tareas programadas (django-crontab)
 CRONJOBS = [

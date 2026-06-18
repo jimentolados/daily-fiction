@@ -52,7 +52,6 @@ class Movie(models.Model):
     # Recursos multimedia
     poster_url = models.URLField(max_length=500, blank=True)      # URL de TMDb
     iconic_quote = models.TextField(blank=True)
-    spotify_track_id = models.CharField(max_length=100, blank=True)  # Preview 30s
 
     # Control de estado (flujo de contenido)
     is_candidate = models.BooleanField(
@@ -158,17 +157,12 @@ class Clue(models.Model):
     # Contenido de la pista (solo se rellena el campo correspondiente al tipo)
     content_text = models.TextField(
         blank=True,
-        help_text="Para tipos: DIRECTOR, ACTOR, YEAR, ROTTEN_TOMATOES, OSCARS, ICONIC_QUOTE, GENRE, DURATION, COUNTRY, SCREENWRITER"
+        help_text="Para tipos: DIRECTOR, ACTOR, YEAR, ROTTEN_TOMATOES, OSCARS, OSCAR_CATEGORIES, ICONIC_QUOTE, GENRE, DURATION, COUNTRY, SCREENWRITER"
     )
     content_image = models.ImageField(
         upload_to='frames/',
         null=True, blank=True,
         help_text="Para tipo IMAGE: fotograma de la película"
-    )
-    content_audio = models.FileField(
-        upload_to='audio/',
-        null=True, blank=True,
-        help_text="Para tipo AUDIO: fragmento MP3 de menos de 30 segundos"
     )
 
     class Meta:

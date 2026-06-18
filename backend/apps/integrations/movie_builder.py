@@ -3,7 +3,6 @@ import logging
 from apps.movies.models import Movie, MovieBackdrop
 from .tmdb_client import TMDbClient, TMDbError
 from .omdb_client import OMDbClient, OMDbError
-from .spotify_client import SpotifyClient, SpotifyError
 from .wikidata_client import WikidataClient
 
 logger = logging.getLogger(__name__)
@@ -12,27 +11,27 @@ logger = logging.getLogger(__name__)
 class MovieBuilder:
     """
     Orquestador de las APIs externas.
-    Construye o actualiza un objeto Movie a partir de TMDb + OMDb + Spotify.
+    Construye o actualiza un objeto Movie a partir de TMDb + OMDb + Wikidata.
 
     Flujo:
     1. TMDb  → título ES, título original, año, director, actor, guionista,
                 póster, sinopsis, duración, género, país
-    2. OMDb  → oscar_wins, oscar_nominations (y datos de respaldo si TMDb falla)
-    3. Spotify → spotify_track_id para el fragmento de banda sonora
+    2. OMDb  → oscar_wins, oscar_nominations, rt_score
+    3. Wikidata → categorías de Oscars
 
     El campo `rt_score` se importa automáticamente desde OMDb.
     """
 
-    def __init__(self, fetch_spotify=True):
+    def __init__(self):
         self.tmdb = TMDbClient()
         self.omdb = OMDbClient()
-        self.spotify = SpotifyClient() if fetch_spotify else None
         self.wikidata = WikidataClient()
 
-    def build_from_tmdb_id(self, tmdb_id, fetch_spotify=True):
+    def build_from_tmdb_id(self, tmdb_id):
         """
         Crea o actualiza una película a partir de su ID de TMDb.
-        Devuelve el objeto Movie (sin guardar en BD, usa update_or_create internamente).
+        Devuelve (movie, created). Devuelve (None, False) si la película no
+        tiene puntuación en Rotten Tomatoes (criterio de calidad mínimo).
         """
         # ── 1. TMDb ──────────────────────────────────────────────────────────
         try:
@@ -56,18 +55,7 @@ class MovieBuilder:
             logger.info(f'Descartada "{tmdb_data["title"]}": sin puntuación en Rotten Tomatoes.')
             return None, False
 
-        # ── 3. Spotify ────────────────────────────────────────────────────────
-        spotify_track_id = ''
-        if fetch_spotify and self.spotify:
-            try:
-                spotify_track_id = self.spotify.find_soundtrack_preview(
-                    movie_title=tmdb_data['original_title'],
-                    year=tmdb_data.get('year'),
-                ) or ''
-            except SpotifyError as e:
-                logger.warning(f'Spotify no encontró banda sonora para "{tmdb_data["title"]}": {e}')
-
-        # ── 4. Combinar y guardar ─────────────────────────────────────────────
+        # ── 3. Combinar y guardar ─────────────────────────────────────────────
         movie_data = {
             'title':              tmdb_data['title'],
             'original_title':     tmdb_data['original_title'],
@@ -85,8 +73,6 @@ class MovieBuilder:
             'oscar_nominations':  omdb_data.get('oscar_nominations', 0),
             'rt_score':           omdb_data.get('rt_score'),
             'oscar_categories':   self.wikidata.get_oscar_categories(omdb_data.get('omdb_id', '')),
-
-            'spotify_track_id':   spotify_track_id,
             'is_candidate':       True,
         }
 
@@ -95,11 +81,10 @@ class MovieBuilder:
             defaults=movie_data,
         )
 
-        # ── 5. Backdrops (fotogramas para pista IMAGE) ────────────────────────
+        # ── 4. Backdrops (fotogramas para pista IMAGE) ────────────────────────
         try:
             backdrops = self.tmdb.get_backdrops(tmdb_id, max_count=50)
             if backdrops:
-                # Reemplazar los backdrops anteriores si ya existía la película
                 MovieBackdrop.objects.filter(movie=movie).delete()
                 MovieBackdrop.objects.bulk_create([
                     MovieBackdrop(
@@ -119,7 +104,7 @@ class MovieBuilder:
         logger.info(f'{action} película: {movie.title} ({movie.year}) [TMDb ID: {tmdb_id}]')
         return movie, created
 
-    def build_batch(self, tmdb_ids, fetch_spotify=True):
+    def build_batch(self, tmdb_ids):
         """
         Procesa una lista de TMDb IDs y devuelve (creadas, actualizadas, errores).
         """
@@ -128,14 +113,13 @@ class MovieBuilder:
         errors = []
 
         for tmdb_id in tmdb_ids:
-            # Saltar si ya existe y ya fue usada recientemente
             if Movie.objects.filter(tmdb_id=tmdb_id, is_used=True).exists():
                 logger.info(f'Omitiendo TMDb ID {tmdb_id}: ya fue usada recientemente.')
                 continue
             try:
-                movie, created = self.build_from_tmdb_id(tmdb_id, fetch_spotify=fetch_spotify)
+                movie, created = self.build_from_tmdb_id(tmdb_id)
                 if movie is None:
-                    continue  # Descartada por filtro (sin RT u otro criterio)
+                    continue
                 if created:
                     created_count += 1
                 else:

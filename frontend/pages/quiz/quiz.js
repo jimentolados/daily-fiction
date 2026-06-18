@@ -2,103 +2,6 @@
    quiz.js — Lógica del test diario
    ═══════════════════════════════════════════════════════════════════════════════ */
 
-/* ─── REPRODUCTOR DE AUDIO ───────────────────────────────────────────────────── */
-
-class AudioPlayer {
-  constructor(containerId) {
-    this.container = document.getElementById(containerId);
-    this.audio = null;
-    this.playing = false;
-  }
-
-  render(audioUrl, title = 'Fragmento de banda sonora') {
-    if (!this.container) return;
-
-    const bars = Array.from({ length: 48 }, () => {
-      const h = 15 + Math.random() * 85;
-      return `<div class="ap__bar" style="height:${h}%"></div>`;
-    }).join('');
-
-    this.container.innerHTML = `
-      <div class="ap" id="ap-inner">
-        <button class="ap__btn" id="ap-play" title="Reproducir/Pausar" aria-label="Reproducir">
-          <svg id="ap-icon-play" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>
-          <svg id="ap-icon-pause" viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </button>
-        <div class="ap__info">
-          <div class="ap__label">🎵 ${title}</div>
-          <div class="ap__wave" id="ap-wave">
-            <div class="ap__progress" id="ap-progress"></div>
-            <div class="ap__bars">${bars}</div>
-          </div>
-          <div class="ap__time" id="ap-time">0:00 / 0:30</div>
-        </div>
-      </div>
-    `;
-
-    this.audio = new Audio(audioUrl);
-    this.audio.preload = 'metadata';
-
-    document.getElementById('ap-play').addEventListener('click', () => this.toggle());
-    document.getElementById('ap-wave').addEventListener('click', (e) => this.seek(e));
-    this.audio.addEventListener('timeupdate', () => this.updateProgress());
-    this.audio.addEventListener('ended', () => this.onEnded());
-    this.audio.addEventListener('loadedmetadata', () => this.updateTime());
-  }
-
-  toggle() { this.playing ? this.pause() : this.play(); }
-
-  play() {
-    if (!this.audio) return;
-    this.audio.play().catch(() => showToast('No se pudo reproducir el audio.', 'error'));
-    this.playing = true;
-    document.getElementById('ap-inner')?.classList.add('is-playing');
-    document.getElementById('ap-icon-play') && (document.getElementById('ap-icon-play').style.display = 'none');
-    document.getElementById('ap-icon-pause') && (document.getElementById('ap-icon-pause').style.display = '');
-  }
-
-  pause() {
-    if (!this.audio) return;
-    this.audio.pause();
-    this.playing = false;
-    document.getElementById('ap-inner')?.classList.remove('is-playing');
-    document.getElementById('ap-icon-play') && (document.getElementById('ap-icon-play').style.display = '');
-    document.getElementById('ap-icon-pause') && (document.getElementById('ap-icon-pause').style.display = 'none');
-  }
-
-  seek(e) {
-    if (!this.audio?.duration) return;
-    const rect = document.getElementById('ap-wave').getBoundingClientRect();
-    this.audio.currentTime = ((e.clientX - rect.left) / rect.width) * this.audio.duration;
-  }
-
-  updateProgress() {
-    if (!this.audio?.duration) return;
-    const pct = (this.audio.currentTime / this.audio.duration) * 100;
-    const prog = document.getElementById('ap-progress');
-    if (prog) prog.style.width = `${pct}%`;
-    this.updateTime();
-    const bars = document.querySelectorAll('.ap__bar');
-    const active = Math.floor((pct / 100) * bars.length);
-    bars.forEach((b, i) => b.classList.toggle('is-active', i < active));
-  }
-
-  updateTime() {
-    const el = document.getElementById('ap-time');
-    if (!el || !this.audio) return;
-    el.textContent = `${formatTime(this.audio.currentTime || 0)} / ${formatTime(this.audio.duration || 30)}`;
-  }
-
-  onEnded() {
-    this.playing = false;
-    document.getElementById('ap-inner')?.classList.remove('is-playing');
-    document.getElementById('ap-icon-play') && (document.getElementById('ap-icon-play').style.display = '');
-    document.getElementById('ap-icon-pause') && (document.getElementById('ap-icon-pause').style.display = 'none');
-  }
-
-  destroy() { this.audio?.pause(); this.audio = null; }
-}
-
 /* ─── AUTOCOMPLETADO ─────────────────────────────────────────────────────────── */
 
 class Autocomplete {
@@ -189,7 +92,6 @@ class Autocomplete {
 /* ─── ESTADO GLOBAL ─────────────────────────────────────────────────────────── */
 
 let quizState = null;
-let audioPlayer = null;
 let autocomplete = null;
 
 /* ─── INICIALIZAR QUIZ ───────────────────────────────────────────────────────── */
@@ -338,7 +240,7 @@ function renderCurrentClue(clue) {
 
 function renderClueContent(clue, body) {
   if (!body) return;
-  const { clue_type, content_text, content_image, content_audio } = clue;
+  const { clue_type, content_text, content_image } = clue;
 
   if (clue_type === 'IMAGE') {
     const imgSrc = content_image || content_text;
@@ -350,14 +252,6 @@ function renderClueContent(clue, body) {
         </div>`;
       return;
     }
-  }
-
-  if (clue_type === 'AUDIO' && content_audio) {
-    body.innerHTML = `<div id="audio-player-mount" class="clue-audio-mount"></div>`;
-    if (audioPlayer) audioPlayer.destroy();
-    audioPlayer = new AudioPlayer('audio-player-mount');
-    audioPlayer.render(content_audio);
-    return;
   }
 
   if (clue_type === 'ICONIC_QUOTE') {
@@ -380,7 +274,6 @@ function renderClueContent(clue, body) {
 
 function clueContentText(clue) {
   if (clue.clue_type === 'IMAGE') return 'Fotograma';
-  if (clue.clue_type === 'AUDIO') return 'Banda sonora';
   return clue.content_text || '—';
 }
 

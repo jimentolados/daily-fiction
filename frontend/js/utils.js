@@ -95,7 +95,6 @@ function animate(el, cls, duration = 500) {
 /** Nombres de los tipos de pista (mapeados del backend) */
 const CLUE_TYPE_ICONS = {
   IMAGE:          '🖼️',
-  AUDIO:          '🎵',
   DIRECTOR:       '🎬',
   ACTOR:          '🎭',
   YEAR:           '📅',

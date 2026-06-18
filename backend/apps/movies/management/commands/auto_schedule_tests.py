@@ -48,7 +48,7 @@ def _fetch_movies(needed: int, existing_ids: set, stdout, style) -> int:
     ))
 
     tmdb = TMDbClient()
-    builder = MovieBuilder(fetch_spotify=False)
+    builder = MovieBuilder()
 
     candidate_ids = tmdb.discover_movies_mixed(
         count=needed * FETCH_MULTIPLIER,
@@ -60,7 +60,7 @@ def _fetch_movies(needed: int, existing_ids: set, stdout, style) -> int:
         if created >= needed:
             break
         try:
-            movie, was_created = builder.build_from_tmdb_id(tmdb_id, fetch_spotify=False)
+            movie, was_created = builder.build_from_tmdb_id(tmdb_id)
             if movie and was_created and _is_eligible(movie):
                 created += 1
         except Exception:

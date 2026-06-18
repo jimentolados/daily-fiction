@@ -7,7 +7,6 @@ class ClueTypeCode(models.TextChoices):
     Cada test usa exactamente 4 pistas, una de cada tipo elegido por el admin.
     """
     IMAGE = 'IMAGE', 'Fotograma de la película'
-    AUDIO = 'AUDIO', 'Fragmento de banda sonora'
     DIRECTOR = 'DIRECTOR', 'Director'
     ACTOR = 'ACTOR', 'Actor/Actriz protagonista'
     YEAR = 'YEAR', 'Año de estreno'
