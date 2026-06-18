@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Fiction — Adivina la película del día</title>
+
+  <!-- CSS compartido -->
+  <link rel="stylesheet" href="../../shared/css/variables.css" />
+  <link rel="stylesheet" href="../../shared/css/reset.css" />
+  <link rel="stylesheet" href="../../shared/css/main.css" />
+  <link rel="stylesheet" href="../../shared/css/navbar.css" />
+  <link rel="stylesheet" href="../../shared/css/modal.css" />
+  <!-- CSS de página -->
+  <link rel="stylesheet" href="./home.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header id="navbar" class="navbar"></header>
+
+  <!-- Hero -->
+  <section class="home-hero">
+    <div class="home-hero__date" id="today-date"></div>
+
+    <div class="home-hero__tagline">
+      <span class="tagline-light">adivina la</span>
+      <span class="tagline-bold">PELÍCULA DEL DÍA</span>
+    </div>
+
+    <h1 class="home-hero__title">DAILY FICTION</h1>
+
+    <p class="home-hero__credits">
+      4 &nbsp;pistas &nbsp;·&nbsp; 1 oportunidad cada una &nbsp;·&nbsp; ¿Cuántas necesitarás?
+    </p>
+
+    <div class="home-hero__cta">
+      <a href="../quiz/quiz.html" class="btn btn-primary btn-lg">Empezar test</a>
+    </div>
+  </section>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts compartidos -->
+  <script src="../../shared/js/config.js"></script>
+  <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/api.js"></script>
+  <script src="../../shared/js/auth.js"></script>
+  <script src="../../shared/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateEl = document.getElementById('today-date');
+      if (dateEl) {
+        dateEl.textContent = new Date().toLocaleDateString('es-ES', {
+          weekday: 'long', day: 'numeric', month: 'long'
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

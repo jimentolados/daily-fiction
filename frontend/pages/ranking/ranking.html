@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Fiction — Ranking mensual</title>
+
+  <!-- CSS compartido -->
+  <link rel="stylesheet" href="../../shared/css/variables.css" />
+  <link rel="stylesheet" href="../../shared/css/reset.css" />
+  <link rel="stylesheet" href="../../shared/css/main.css" />
+  <link rel="stylesheet" href="../../shared/css/navbar.css" />
+  <link rel="stylesheet" href="../../shared/css/modal.css" />
+  <!-- CSS de página -->
+  <link rel="stylesheet" href="./ranking.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header id="navbar" class="navbar"></header>
+
+  <main class="container" style="padding-top: calc(var(--navbar-h) + var(--sp-10)); padding-bottom: var(--sp-16)">
+
+    <div class="page-header">
+      <h1 class="page-title">Ranking mensual</h1>
+      <p class="page-subtitle text-muted">Los mejores jugadores de este mes</p>
+    </div>
+
+    <!-- Filtros -->
+    <div class="ranking-filters card mb-6">
+      <div class="ranking-filters__inner">
+        <div class="form-group" style="margin:0;flex:1;min-width:0">
+          <label class="form-label" for="filter-country">País</label>
+          <select id="filter-country" class="form-input">
+            <option value="">Todos los países</option>
+            <option value="AR">Argentina</option>
+            <option value="BO">Bolivia</option>
+            <option value="CL">Chile</option>
+            <option value="CO">Colombia</option>
+            <option value="CR">Costa Rica</option>
+            <option value="CU">Cuba</option>
+            <option value="EC">Ecuador</option>
+            <option value="SV">El Salvador</option>
+            <option value="ES">España</option>
+            <option value="GQ">Guinea Ecuatorial</option>
+            <option value="GT">Guatemala</option>
+            <option value="HN">Honduras</option>
+            <option value="MX">México</option>
+            <option value="NI">Nicaragua</option>
+            <option value="PA">Panamá</option>
+            <option value="PY">Paraguay</option>
+            <option value="PE">Perú</option>
+            <option value="PR">Puerto Rico</option>
+            <option value="DO">República Dominicana</option>
+            <option value="UY">Uruguay</option>
+            <option value="VE">Venezuela</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;flex:1;min-width:0">
+          <label class="form-label" for="filter-city">Provincia</label>
+          <select id="filter-city" class="form-input" disabled>
+            <option value="">Primero elige un país</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Podio + posición del usuario -->
+    <div id="ranking-summary" class="mb-8">
+      <div class="skeleton" style="height:200px;border-radius:var(--radius-lg)"></div>
+    </div>
+
+    <!-- Tabla completa -->
+    <div id="ranking-full">
+      <div class="skeleton" style="height:400px;border-radius:var(--radius-lg)"></div>
+    </div>
+
+    <!-- Paginación -->
+    <div id="ranking-pagination" class="mt-6"></div>
+
+  </main>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts compartidos -->
+  <script src="../../shared/js/config.js"></script>
+  <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/api.js"></script>
+  <script src="../../shared/js/auth.js"></script>
+  <script src="../../shared/js/main.js"></script>
+  <!-- Script de página -->
+  <script src="./ranking.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initRanking();
+    });
+  </script>
+
+</body>
+</html>

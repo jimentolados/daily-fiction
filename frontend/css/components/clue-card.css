@@ -1,0 +1,170 @@
+/* ─── PROGRESO DE PISTAS ─────────────────────────────────────────────────────── */
+.clue-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+.clue-progress__steps {
+  display: flex;
+  gap: var(--sp-2);
+  flex: 1;
+}
+
+.clue-progress__step {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  transition: background var(--ease-med);
+}
+.clue-progress__step.revealed  { background: var(--color-gold); }
+.clue-progress__step.current   { background: var(--color-gold); opacity: 0.5;
+  animation: pulse 1.5s ease infinite; }
+
+.clue-progress__label {
+  font-size: var(--size-sm);
+  color: var(--color-text-3);
+  white-space: nowrap;
+}
+
+/* ─── TARJETA DE PISTA ───────────────────────────────────────────────────────── */
+.clue-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.clue-card--new {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-glow);
+  animation: scaleIn 0.35s ease forwards;
+}
+
+.clue-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-2);
+}
+
+.clue-card__number {
+  font-family: var(--font-display);
+  font-size: var(--size-3xl);
+  color: var(--color-gold);
+  line-height: 1;
+  width: 40px;
+}
+
+.clue-card__type-icon { font-size: var(--size-xl); }
+
+.clue-card__meta { flex: 1; }
+
+.clue-card__type-name {
+  font-size: var(--size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+}
+
+.clue-card__body {
+  padding: var(--sp-6);
+}
+
+/* ── Pista de texto (director, año, etc.) ── */
+.clue-text {
+  font-size: var(--size-3xl);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  padding: var(--sp-4) 0;
+}
+
+.clue-text--large {
+  font-family: var(--font-display);
+  font-size: var(--size-5xl);
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+}
+
+.clue-quote {
+  font-size: var(--size-xl);
+  font-style: italic;
+  color: var(--color-text-2);
+  text-align: center;
+  line-height: 1.7;
+  padding: var(--sp-4) var(--sp-8);
+  border-left: 3px solid var(--color-gold);
+  background: var(--color-bg-2);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* ── Pista de imagen (fotograma) ── */
+.clue-image-wrap {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background: var(--color-bg-3);
+}
+.clue-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Efecto de viñeta sobre la imagen */
+.clue-image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(10,11,15,0.6) 100%);
+  pointer-events: none;
+}
+
+/* ─── PISTAS ANTERIORES (mini) ─────────────────────────────────────────────── */
+.prev-clues {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+.prev-clue {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--color-bg-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--size-sm);
+  color: var(--color-text-2);
+}
+.prev-clue__num {
+  font-family: var(--font-display);
+  font-size: var(--size-lg);
+  color: var(--color-text-3);
+  width: 20px;
+  flex-shrink: 0;
+}
+.prev-clue__type {
+  font-weight: 600;
+  color: var(--color-text-3);
+  min-width: 80px;
+}
+.prev-clue__value {
+  flex: 1;
+  color: var(--color-text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.prev-clue__wrong { color: var(--color-red); font-weight: 600; }

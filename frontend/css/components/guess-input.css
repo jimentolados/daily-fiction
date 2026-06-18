@@ -1,0 +1,149 @@
+.guess-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+}
+
+.guess-section__title {
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--sp-3);
+}
+
+.guess-input-wrap {
+  display: flex;
+  gap: var(--sp-3);
+  position: relative;
+}
+
+.guess-input {
+  flex: 1;
+  background: var(--color-bg-2);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--size-base);
+  transition: border-color var(--ease-fast), box-shadow var(--ease-fast);
+}
+.guess-input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(232,184,75,0.12);
+}
+.guess-input::placeholder { color: var(--color-text-3); }
+
+/* Estado: incorrecto */
+.guess-input.incorrect {
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 3px rgba(217,64,64,0.12);
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+/* Autocompletado */
+.autocomplete-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  max-height: 240px;
+  overflow-y: auto;
+  animation: slideDown 0.2s ease;
+}
+
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  transition: background var(--ease-fast);
+  border-bottom: 1px solid var(--color-border);
+}
+.autocomplete-item:last-child { border-bottom: none; }
+.autocomplete-item:hover,
+.autocomplete-item.selected {
+  background: var(--color-bg-2);
+}
+
+.autocomplete-poster {
+  width: 30px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--color-bg-3);
+  flex-shrink: 0;
+}
+
+.autocomplete-info { flex: 1; min-width: 0; }
+.autocomplete-title {
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.autocomplete-year {
+  font-size: var(--size-xs);
+  color: var(--color-text-3);
+}
+
+/* Intentos restantes */
+.attempts-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  font-size: var(--size-sm);
+  color: var(--color-text-3);
+}
+
+.attempt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-gold);
+  transition: all var(--ease-fast);
+}
+.attempt-dot.used { background: var(--color-border-2); }
+.attempt-dot.wrong { background: var(--color-red); }
+
+/* Feedback incorrecto */
+.guess-feedback {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-md);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  margin-top: var(--sp-3);
+  animation: fadeIn 0.3s ease;
+}
+.guess-feedback--wrong {
+  background: var(--color-red-dim);
+  color: var(--color-red);
+  border: 1px solid rgba(217,64,64,0.3);
+}
+.guess-feedback--correct {
+  background: var(--color-green-dim);
+  color: var(--color-green);
+  border: 1px solid rgba(61,190,122,0.3);
+}

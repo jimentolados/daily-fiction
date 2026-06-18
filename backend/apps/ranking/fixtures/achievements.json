@@ -1,0 +1,156 @@
+[
+  {
+    "model": "ranking.achievement",
+    "pk": 1,
+    "fields": {
+      "code": "CHAMPION_GLOBAL",
+      "name": "Campeón Mundial",
+      "description": "Has quedado primero en el ranking global del mes.",
+      "icon": "trophy",
+      "category": "RANKING"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 2,
+    "fields": {
+      "code": "CHAMPION_COUNTRY",
+      "name": "Campeón de País",
+      "description": "Has quedado primero en el ranking de tu país este mes.",
+      "icon": "medal-gold",
+      "category": "RANKING"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 3,
+    "fields": {
+      "code": "CHAMPION_CITY",
+      "name": "Campeón de Ciudad",
+      "description": "Has quedado primero en el ranking de tu ciudad este mes.",
+      "icon": "medal-gold",
+      "category": "RANKING"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 4,
+    "fields": {
+      "code": "PODIUM_GLOBAL",
+      "name": "Podio Mundial",
+      "description": "Has quedado entre los 3 primeros del ranking global del mes.",
+      "icon": "medal-silver",
+      "category": "RANKING"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 5,
+    "fields": {
+      "code": "PODIUM_COUNTRY",
+      "name": "Podio de País",
+      "description": "Has quedado entre los 3 primeros del ranking de tu país este mes.",
+      "icon": "medal-silver",
+      "category": "RANKING"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 6,
+    "fields": {
+      "code": "FIRST_BLOOD",
+      "name": "Primera película",
+      "description": "Has acertado tu primera película. ¡Comienza la aventura!",
+      "icon": "film-reel",
+      "category": "ESPECIAL"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 7,
+    "fields": {
+      "code": "PISTA_1",
+      "name": "Instinto cinéfilo",
+      "description": "Has acertado una película con solo la primera pista. ¡Increíble!",
+      "icon": "star",
+      "category": "PRECISION"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 8,
+    "fields": {
+      "code": "STREAK_7",
+      "name": "Semana perfecta",
+      "description": "Has acertado 7 días consecutivos.",
+      "icon": "fire",
+      "category": "RACHA"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 9,
+    "fields": {
+      "code": "STREAK_30",
+      "name": "Mes sin fisuras",
+      "description": "Has acertado 30 días consecutivos. Leyenda.",
+      "icon": "fire",
+      "category": "RACHA"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 10,
+    "fields": {
+      "code": "CENTURY",
+      "name": "Centenario",
+      "description": "Has acertado 100 películas en total. ¡Eres todo un cinéfilo!",
+      "icon": "clapperboard",
+      "category": "ESPECIAL"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 11,
+    "fields": {
+      "code": "PERFECT_WEEK",
+      "name": "Semana impecable",
+      "description": "Has acertado 7 días seguidos con la primera pista.",
+      "icon": "star",
+      "category": "PRECISION"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 12,
+    "fields": {
+      "code": "EARLY_BIRD",
+      "name": "Madrugador",
+      "description": "Has completado el test antes de las 8:00 AM.",
+      "icon": "eye",
+      "category": "ESPECIAL"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 13,
+    "fields": {
+      "code": "NIGHT_OWL",
+      "name": "Noctámbulo",
+      "description": "Has completado el test después de las 23:00.",
+      "icon": "eye",
+      "category": "ESPECIAL"
+    }
+  },
+  {
+    "model": "ranking.achievement",
+    "pk": 14,
+    "fields": {
+      "code": "TOP10_GLOBAL",
+      "name": "Top 10 Mundial",
+      "description": "Has entrado en el Top 10 del ranking global de un mes.",
+      "icon": "trophy",
+      "category": "RANKING"
+    }
+  }
+]

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Fiction — Logros</title>
+
+  <!-- CSS compartido -->
+  <link rel="stylesheet" href="../../shared/css/variables.css" />
+  <link rel="stylesheet" href="../../shared/css/reset.css" />
+  <link rel="stylesheet" href="../../shared/css/main.css" />
+  <link rel="stylesheet" href="../../shared/css/navbar.css" />
+  <link rel="stylesheet" href="../../shared/css/modal.css" />
+  <!-- CSS de página -->
+  <link rel="stylesheet" href="./logros.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header id="navbar" class="navbar"></header>
+
+  <div class="page-grid">
+
+    <!-- Colage lateral izquierdo -->
+    <div class="profile-collage profile-collage--left">
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/antes del atardecer.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/el padrino.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/el silencio de los corderos.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/el caballero oscuro.webp" alt="" /></div>
+    </div>
+
+    <main class="profile-main container">
+
+    <div class="profile-layout">
+
+      <!-- Columna izquierda: tarjeta + stats -->
+      <div class="profile-layout__sidebar">
+
+        <!-- Tarjeta de usuario -->
+        <div id="profile-card" class="card">
+          <div class="skeleton" style="height:80px"></div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div id="profile-stats" class="card">
+          <div class="skeleton" style="height:100px"></div>
+        </div>
+
+      </div>
+
+      <!-- Columna derecha: editar + logros -->
+      <div class="profile-layout__main">
+
+        <!-- Formulario de edición -->
+        <div class="card">
+          <h2 class="card__title">Editar perfil</h2>
+          <form id="profile-form" novalidate>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="profile-username">Nombre de usuario *</label>
+                <input id="profile-username" name="username" class="form-input" type="text" required />
+                <div class="form-error" data-field="username"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-full_name">Nombre completo</label>
+                <input id="profile-full_name" name="full_name" class="form-input" type="text" />
+                <div class="form-error" data-field="full_name"></div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="profile-city">Ciudad</label>
+                <input id="profile-city" name="city" class="form-input" type="text" placeholder="Ej: Madrid" />
+                <div class="form-error" data-field="city"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-country">País</label>
+                <input id="profile-country" name="country" class="form-input" type="text" placeholder="Ej: España" />
+                <div class="form-error" data-field="country"></div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:var(--sp-3);flex-wrap:wrap">
+              <button type="submit" class="btn btn-primary btn-sm">Guardar cambios</button>
+              <button type="button" id="change-password-btn" class="btn btn-outline btn-sm">Cambiar contraseña</button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Logros -->
+        <div class="card">
+          <h2 class="card__title">Logros</h2>
+          <div id="achievements-wrap">
+            <div class="skeleton" style="height:80px"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </main>
+
+    <!-- Colage lateral derecho -->
+    <div class="profile-collage profile-collage--right">
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/parasitos.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/birdman.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/terminator 2.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/el laberinto del fauno.webp" alt="" /></div>
+    </div>
+
+  </div><!-- /.page-grid -->
+
+  <!-- Modal cambio de contraseña -->
+  <div id="password-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeChangePassword()">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title">Cambiar contraseña</h3>
+        <button class="modal__close" onclick="closeChangePassword()">✕</button>
+      </div>
+      <div class="modal__body">
+        <div class="form-group">
+          <label class="form-label" for="pw-current">Contraseña actual</label>
+          <input id="pw-current" class="form-input" type="password" autocomplete="current-password" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pw-new">Nueva contraseña</label>
+          <input id="pw-new" class="form-input" type="password" autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pw-confirm">Confirmar nueva contraseña</label>
+          <input id="pw-confirm" class="form-input" type="password" autocomplete="new-password" />
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn-ghost" onclick="closeChangePassword()">Cancelar</button>
+        <button id="pw-submit-btn" class="btn btn-primary" onclick="submitChangePassword()">Cambiar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts compartidos -->
+  <script src="../../shared/js/config.js"></script>
+  <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/api.js"></script>
+  <script src="../../shared/js/auth.js"></script>
+  <script src="../../shared/js/main.js"></script>
+  <!-- Script de página -->
+  <script src="./logros.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initProfile();
+      initProfileCollage();
+    });
+  </script>
+
+</body>
+</html>

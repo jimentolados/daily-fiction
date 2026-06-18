@@ -1,0 +1,147 @@
+.home-hero {
+  text-align: center;
+  padding: var(--sp-20) var(--sp-6) var(--sp-16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Fecha — pequeña, dorada, muy espaciada. Como "10.4.13" en Gravity */
+.home-hero__date {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.45em;
+  color: var(--color-gold);
+  margin-bottom: var(--sp-10);
+  opacity: 0.9;
+}
+
+/* "adivina la PELÍCULA DEL DÍA" — exactamente como "from director ALFONSO CUARÓN" */
+.home-hero__tagline {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55em;
+  margin-bottom: var(--sp-5);
+}
+
+/* "adivina la" — Futura Light */
+.tagline-light {
+  font-family: 'Futura', 'Jost', 'Century Gothic', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.55rem, 1vw, 0.7rem);
+  text-transform: lowercase;
+  letter-spacing: 0.18em;
+  color: var(--color-text-3);
+}
+
+/* "PELÍCULA DEL DÍA" — Futura Medium */
+.tagline-bold {
+  font-family: 'Futura', 'Jost', 'Century Gothic', sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.7rem, 1.4vw, 0.88rem);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* "DAILY FICTION" — Futura Medium */
+.home-hero__title {
+  font-family: 'Futura', 'Jost', 'Century Gothic', sans-serif;
+  font-weight: 500;
+  font-size: clamp(3.5rem, 11vw, 9rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1;
+  margin: 0 0 var(--sp-6);
+  text-shadow: 0 0 100px rgba(255,255,255,0.06);
+}
+
+/* Créditos — bloque de texto pequeño como los créditos del cartel */
+.home-hero__credits {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-3);
+  margin-bottom: var(--sp-12);
+}
+
+.home-hero__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+/* Cuenta atrás */
+.countdown {
+  text-align: center;
+  padding: var(--sp-8) 0;
+}
+.countdown__label {
+  font-size: var(--size-sm);
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: var(--sp-4);
+}
+.countdown__timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+}
+.countdown__unit {
+  text-align: center;
+}
+.countdown__num {
+  font-family: var(--font-display);
+  font-size: var(--size-5xl);
+  color: var(--color-text);
+  line-height: 1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-5);
+  min-width: 80px;
+  display: block;
+}
+.countdown__unit-label {
+  font-size: var(--size-xs);
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: var(--sp-2);
+}
+.countdown__sep {
+  font-family: var(--font-display);
+  font-size: var(--size-4xl);
+  color: var(--color-gold);
+  margin-bottom: var(--sp-5);
+}
+
+/* Resultado de hoy (si ya jugó) */
+.today-result {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-6);
+  margin-bottom: var(--sp-8);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+}
+.today-result.success { border-color: var(--color-green); background: var(--color-green-dim); }
+.today-result.fail    { border-color: var(--color-border); }
+
+.today-result__icon   { font-size: 48px; flex-shrink: 0; }
+.today-result__info   { flex: 1; }
+.today-result__title  { font-weight: 700; font-size: var(--size-lg); margin-bottom: var(--sp-1); }
+.today-result__score  { font-family: var(--font-display); font-size: var(--size-4xl); color: var(--color-gold); }
+.today-result__detail { font-size: var(--size-sm); color: var(--color-text-2); }

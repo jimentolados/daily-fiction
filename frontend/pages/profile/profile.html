@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Fiction — Mi perfil</title>
+
+  <!-- CSS compartido -->
+  <link rel="stylesheet" href="../../shared/css/variables.css" />
+  <link rel="stylesheet" href="../../shared/css/reset.css" />
+  <link rel="stylesheet" href="../../shared/css/main.css" />
+  <link rel="stylesheet" href="../../shared/css/navbar.css" />
+  <link rel="stylesheet" href="../../shared/css/modal.css" />
+  <!-- CSS de página -->
+  <link rel="stylesheet" href="./profile.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header id="navbar" class="navbar"></header>
+
+  <div class="page-grid">
+
+    <!-- Colage lateral izquierdo -->
+    <div class="profile-collage profile-collage--left">
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/antes del atardecer.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/el padrino.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/el silencio de los corderos.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/el caballero oscuro.webp" alt="" /></div>
+    </div>
+
+    <main class="profile-main container">
+
+    <div class="profile-layout">
+
+      <!-- Columna izquierda: tarjeta + stats -->
+      <div class="profile-layout__sidebar">
+
+        <!-- Tarjeta de usuario -->
+        <div id="profile-card" class="card">
+          <div class="skeleton" style="height:80px"></div>
+        </div>
+
+      </div>
+
+      <!-- Columna derecha: editar + logros -->
+      <div class="profile-layout__main">
+
+        <!-- Formulario de edición -->
+        <div class="card">
+          <h2 class="card__title">Editar perfil</h2>
+          <form id="profile-form" novalidate>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="profile-username">Nombre de usuario *</label>
+                <input id="profile-username" name="username" class="form-input" type="text" required />
+                <div class="form-error" data-field="username"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-full_name">Nombre completo</label>
+                <input id="profile-full_name" name="full_name" class="form-input" type="text" />
+                <div class="form-error" data-field="full_name"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="profile-email">Correo electrónico</label>
+              <input id="profile-email" name="email" class="form-input" type="email" autocomplete="email" />
+              <div class="form-error" data-field="email"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="profile-country-trigger">País</label>
+                <div class="country-select" id="profile-country-select">
+                  <button type="button" class="country-select__trigger form-input" id="profile-country-trigger" aria-haspopup="listbox">
+                    <span class="country-select__label">Selecciona tu país</span>
+                    <svg class="country-select__arrow" width="12" height="7" viewBox="0 0 12 7" fill="none">
+                      <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <ul class="country-select__list" role="listbox">
+                    <li class="country-select__item" data-value="AR">Argentina</li>
+                    <li class="country-select__item" data-value="BO">Bolivia</li>
+                    <li class="country-select__item" data-value="CL">Chile</li>
+                    <li class="country-select__item" data-value="CO">Colombia</li>
+                    <li class="country-select__item" data-value="CR">Costa Rica</li>
+                    <li class="country-select__item" data-value="CU">Cuba</li>
+                    <li class="country-select__item" data-value="EC">Ecuador</li>
+                    <li class="country-select__item" data-value="SV">El Salvador</li>
+                    <li class="country-select__item" data-value="ES">España</li>
+                    <li class="country-select__item" data-value="GQ">Guinea Ecuatorial</li>
+                    <li class="country-select__item" data-value="GT">Guatemala</li>
+                    <li class="country-select__item" data-value="HN">Honduras</li>
+                    <li class="country-select__item" data-value="MX">México</li>
+                    <li class="country-select__item" data-value="NI">Nicaragua</li>
+                    <li class="country-select__item" data-value="PA">Panamá</li>
+                    <li class="country-select__item" data-value="PY">Paraguay</li>
+                    <li class="country-select__item" data-value="PE">Perú</li>
+                    <li class="country-select__item" data-value="PR">Puerto Rico</li>
+                    <li class="country-select__item" data-value="DO">República Dominicana</li>
+                    <li class="country-select__item" data-value="UY">Uruguay</li>
+                    <li class="country-select__item" data-value="VE">Venezuela</li>
+                  </ul>
+                </div>
+                <input type="hidden" name="country" id="profile-country" />
+                <div class="form-error" data-field="country"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="profile-city-trigger">Provincia</label>
+                <div class="country-select" id="profile-city-select">
+                  <button type="button" class="country-select__trigger form-input" id="profile-city-trigger" aria-haspopup="listbox" disabled>
+                    <span class="country-select__label">Primero elige un país</span>
+                    <svg class="country-select__arrow" width="12" height="7" viewBox="0 0 12 7" fill="none">
+                      <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <ul class="country-select__list" role="listbox"></ul>
+                </div>
+                <input type="hidden" name="city" id="profile-city" />
+                <div class="form-error" data-field="city"></div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:var(--sp-3);flex-wrap:wrap;margin-top:var(--sp-5)">
+              <button type="submit" class="btn btn-primary btn-sm">Guardar cambios</button>
+              <button type="button" id="change-password-btn" class="btn btn-outline btn-sm">Cambiar contraseña</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+    </main>
+
+    <!-- Colage lateral derecho -->
+    <div class="profile-collage profile-collage--right">
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/pequeña miss sunshine.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/birdman.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/terminator 2.webp" alt="" /></div>
+      <div class="profile-collage__cell"><img src="../../assets/images/profile/el laberinto del fauno.webp" alt="" /></div>
+    </div>
+
+  </div><!-- /.page-grid -->
+
+  <!-- Modal cambio de contraseña -->
+  <div id="password-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeChangePassword()">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title">Cambiar contraseña</h3>
+        <button class="modal__close" onclick="closeChangePassword()">✕</button>
+      </div>
+      <div class="modal__body">
+        <div class="form-group">
+          <label class="form-label" for="pw-current">Contraseña actual</label>
+          <input id="pw-current" class="form-input" type="password" autocomplete="current-password" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pw-new">Nueva contraseña</label>
+          <input id="pw-new" class="form-input" type="password" autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pw-confirm">Confirmar nueva contraseña</label>
+          <input id="pw-confirm" class="form-input" type="password" autocomplete="new-password" />
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn-ghost" onclick="closeChangePassword()">Cancelar</button>
+        <button id="pw-submit-btn" class="btn btn-primary" onclick="submitChangePassword()">Cambiar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal error al guardar -->
+  <div id="error-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeErrorModal()">
+    <div class="modal profile-feedback-modal profile-feedback-modal--error">
+      <button class="modal__close" onclick="closeErrorModal()">✕</button>
+      <div class="profile-feedback-modal__icon">✕</div>
+      <h3 class="profile-feedback-modal__title">Error al guardar</h3>
+      <div class="profile-feedback-modal__divider"></div>
+      <p class="profile-feedback-modal__subtitle">No se pudieron aplicar los cambios</p>
+      <p class="profile-feedback-modal__hint">Comprueba los campos e inténtalo de nuevo</p>
+      <button class="btn btn-primary profile-feedback-modal__btn" onclick="closeErrorModal()">Entendido</button>
+    </div>
+  </div>
+
+  <!-- Modal cambios guardados -->
+  <div id="success-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeSuccessModal()">
+    <div class="modal profile-feedback-modal profile-feedback-modal--success">
+      <button class="modal__close" onclick="closeSuccessModal()">✕</button>
+      <div class="profile-feedback-modal__icon">✓</div>
+      <h3 class="profile-feedback-modal__title">Cambios guardados</h3>
+      <div class="profile-feedback-modal__divider"></div>
+      <p class="profile-feedback-modal__subtitle">Tu perfil se ha actualizado correctamente</p>
+      <p class="profile-feedback-modal__hint">Los cambios ya son visibles en tu cuenta</p>
+      <button class="btn btn-primary profile-feedback-modal__btn" onclick="closeSuccessModal()">Aceptar</button>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts compartidos -->
+  <script src="../../shared/js/config.js"></script>
+  <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/api.js"></script>
+  <script src="../../shared/js/auth.js"></script>
+  <script src="../../shared/js/main.js"></script>
+  <!-- Script de página -->
+  <script src="./profile.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initProfile();
+      initProfileCollage();
+    });
+  </script>
+
+</body>
+</html>

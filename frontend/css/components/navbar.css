@@ -1,0 +1,102 @@
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--navbar-h);
+  background: rgba(10, 11, 15, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-6);
+}
+
+.navbar__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  gap: 1px;
+  text-decoration: none;
+  transition: opacity var(--ease-fast);
+}
+.navbar__logo:hover { opacity: 0.8; }
+
+/* "DAILY" — fino, espaciado, como subtítulo de póster */
+.navbar__logo-daily {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-size: 0.55rem;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  color: var(--color-text-3);
+  padding-left: 2px; /* compensa el tracking visual */
+}
+
+/* "FICTION" — negro, compacto, el protagonista */
+.navbar__logo-fiction {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.navbar__link {
+  font-size: var(--size-sm);
+  font-weight: 500;
+  color: var(--color-text-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-md);
+  transition: color var(--ease-fast), background var(--ease-fast);
+}
+.navbar__link:hover,
+.navbar__link.active {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.navbar__user {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.navbar__username {
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--color-gold);
+}
+
+.navbar__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: var(--color-gold-dim);
+  border: 1.5px solid var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--size-lg);
+  color: var(--color-gold);
+}
+
+/* Espacio para compensar el navbar fijo */
+.navbar-spacer { height: var(--navbar-h); }

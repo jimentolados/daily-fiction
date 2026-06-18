@@ -1,0 +1,92 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   home.css — Estilos de la página de inicio
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ─── HOME HERO ──────────────────────────────────────────────────────────────── */
+.home-hero {
+  text-align: center;
+  padding: var(--sp-20) var(--sp-6) var(--sp-16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  min-height: calc(100vh - 60px);
+  justify-content: center;
+}
+
+/* Fecha — pequeña, dorada, muy espaciada */
+.home-hero__date {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.45em;
+  color: var(--color-gold);
+  margin-bottom: var(--sp-10);
+  opacity: 0.9;
+  animation: cinema-fade-in 1.2s ease both;
+}
+
+/* "adivina la PELÍCULA DEL DÍA" */
+.home-hero__tagline {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55em;
+  margin-bottom: var(--sp-5);
+  animation: cinema-fade-in 1.2s ease 0.5s both;
+}
+
+.tagline-light {
+  font-family: 'Futura', 'Jost', 'Century Gothic', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.55rem, 1vw, 0.7rem);
+  text-transform: lowercase;
+  letter-spacing: 0.18em;
+  color: var(--color-text-3);
+}
+
+.tagline-bold {
+  font-family: 'Futura', 'Jost', 'Century Gothic', sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.7rem, 1.4vw, 0.88rem);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* "DAILY FICTION" */
+.home-hero__title {
+  font-family: 'Futura', 'Jost', 'Century Gothic', sans-serif;
+  font-weight: 500;
+  font-size: clamp(3.5rem, 11vw, 9rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1;
+  margin: 0 0 var(--sp-6);
+  text-shadow: 0 0 100px rgba(255,255,255,0.06);
+  animation: chromatic-in 8s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+}
+
+/* Créditos */
+.home-hero__credits {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-3);
+  margin-bottom: var(--sp-10);
+  animation: cinema-fade-in 1.2s ease 2s both;
+}
+
+/* CTA */
+.home-hero__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  animation: cinema-fade-in 1.2s ease 2.5s both;
+}
+

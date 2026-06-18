@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Fiction — Crear cuenta</title>
+
+  <!-- CSS compartido -->
+  <link rel="stylesheet" href="../../shared/css/variables.css" />
+  <link rel="stylesheet" href="../../shared/css/reset.css" />
+  <link rel="stylesheet" href="../../shared/css/main.css" />
+  <link rel="stylesheet" href="../../shared/css/navbar.css" />
+  <link rel="stylesheet" href="../../shared/css/modal.css" />
+  <!-- CSS de página -->
+  <link rel="stylesheet" href="./register.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+  <main class="auth-page">
+    <div class="auth-split">
+
+    <div class="auth-split__form">
+    <div class="auth-card">
+
+      <div class="auth-card__header">
+        <a href="../home/home.html" class="auth-logo">Daily Fiction</a>
+        <p class="auth-subtitle text-muted">Únete y compite en el ranking mensual</p>
+      </div>
+
+      <!-- Google -->
+      <div class="google-btn-wrap">
+        <div id="google-signin-btn"></div>
+      </div>
+
+
+      <!-- Formulario -->
+      <form id="register-form" novalidate>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="reg-username">Nombre de usuario *</label>
+            <input
+              id="reg-username"
+              name="username"
+              class="form-input"
+              type="text"
+              placeholder="cinefilo99"
+              autocomplete="username"
+              required
+            />
+            <div class="form-error" data-field="username"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-full-name">Nombre completo</label>
+            <input
+              id="reg-full-name"
+              name="full_name"
+              class="form-input"
+              type="text"
+              placeholder="Juan García"
+              autocomplete="name"
+            />
+            <div class="form-error" data-field="full_name"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Correo electrónico *</label>
+          <input
+            id="reg-email"
+            name="email"
+            class="form-input"
+            type="email"
+            placeholder="tu@correo.com"
+            autocomplete="email"
+            required
+          />
+          <div class="form-error" data-field="email"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="reg-country-trigger">País *</label>
+            <div class="country-select" id="country-select">
+              <button type="button" class="country-select__trigger form-input" id="reg-country-trigger" aria-haspopup="listbox">
+                <span class="country-select__label">Selecciona tu país</span>
+                <svg class="country-select__arrow" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+              <ul class="country-select__list" role="listbox">
+                <li class="country-select__item" data-value="AR">Argentina</li>
+                <li class="country-select__item" data-value="BO">Bolivia</li>
+                <li class="country-select__item" data-value="CL">Chile</li>
+                <li class="country-select__item" data-value="CO">Colombia</li>
+                <li class="country-select__item" data-value="CR">Costa Rica</li>
+                <li class="country-select__item" data-value="CU">Cuba</li>
+                <li class="country-select__item" data-value="EC">Ecuador</li>
+                <li class="country-select__item" data-value="SV">El Salvador</li>
+                <li class="country-select__item" data-value="ES">España</li>
+                <li class="country-select__item" data-value="GQ">Guinea Ecuatorial</li>
+                <li class="country-select__item" data-value="GT">Guatemala</li>
+                <li class="country-select__item" data-value="HN">Honduras</li>
+                <li class="country-select__item" data-value="MX">México</li>
+                <li class="country-select__item" data-value="NI">Nicaragua</li>
+                <li class="country-select__item" data-value="PA">Panamá</li>
+                <li class="country-select__item" data-value="PY">Paraguay</li>
+                <li class="country-select__item" data-value="PE">Perú</li>
+                <li class="country-select__item" data-value="PR">Puerto Rico</li>
+                <li class="country-select__item" data-value="DO">República Dominicana</li>
+                <li class="country-select__item" data-value="UY">Uruguay</li>
+                <li class="country-select__item" data-value="VE">Venezuela</li>
+              </ul>
+            </div>
+            <input type="hidden" name="country" id="reg-country" />
+            <div class="form-error" data-field="country"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-city-trigger">Provincia *</label>
+            <div class="country-select" id="city-select">
+              <button type="button" class="country-select__trigger form-input" id="reg-city-trigger" aria-haspopup="listbox" disabled>
+                <span class="country-select__label">Primero elige un país</span>
+                <svg class="country-select__arrow" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+              <ul class="country-select__list" role="listbox"></ul>
+            </div>
+            <input type="hidden" name="city" id="reg-city" />
+            <div class="form-error" data-field="city"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Contraseña *</label>
+          <div class="input-password-wrap">
+            <input
+              id="reg-password"
+              name="password"
+              class="form-input"
+              type="password"
+              placeholder="Mínimo 8 caracteres"
+              autocomplete="new-password"
+              required
+            />
+            <button type="button" class="input-password-toggle" aria-label="Mostrar contraseña">
+              <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="form-error" data-field="password"></div>
+        </div>
+
+        <div id="register-error" class="form-general-error"></div>
+
+        <button type="submit" class="btn btn-primary btn-block mt-4">Crear cuenta</button>
+      </form>
+
+      <p class="auth-footer">
+        ¿Ya tienes cuenta?
+        <a href="../login/login.html" class="link">Inicia sesión</a>
+      </p>
+
+    </div>
+    </div><!-- /.auth-split__form -->
+
+    <div class="auth-split__image">
+      <div class="collage">
+        <div class="collage__item collage__item--1">
+          <img src="../../assets/images/register/casablanca.webp" alt="Casablanca (1942)" fetchpriority="high" />
+        </div>
+        <div class="collage__item collage__item--2">
+          <img src="../../assets/images/register/kane.webp" alt="Ciudadano Kane (1941)" />
+        </div>
+        <div class="collage__item collage__item--3">
+          <img src="../../assets/images/register/nosferatu.webp" alt="Nosferatu (1922)" />
+        </div>
+        <div class="collage__item collage__item--4">
+          <img src="../../assets/images/register/marilyn.webp" alt="Con faldas y a lo loco (1959)" />
+        </div>
+        <div class="collage__item collage__item--5">
+          <img src="../../assets/images/register/apartamento.webp" alt="El apartamento (1960)" />
+        </div>
+        <div class="collage__item collage__item--6">
+          <img src="../../assets/images/register/mosca.webp" alt="La mosca (1986)" />
+        </div>
+        <div class="collage__item collage__item--7">
+          <img src="../../assets/images/register/dictador.webp" alt="El gran dictador (1940)" />
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /.auth-split -->
+  </main>
+
+  <!-- Grano de película -->
+  <canvas id="film-grain" aria-hidden="true"></canvas>
+  <!-- Flicker de proyector -->
+  <div id="film-flicker" aria-hidden="true"></div>
+
+  <!-- Modal de validación -->
+  <div id="validation-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="validation-modal-title">
+    <div class="modal validation-modal-card">
+      <div class="validation-modal__frame">
+        <i class="vm-corner vm-corner--tl" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--tr" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--bl" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--br" aria-hidden="true"></i>
+        <h2 class="validation-modal__title" id="validation-modal-title">Campos<br>Incompletos</h2>
+        <div class="validation-modal__divider">✦</div>
+        <p class="validation-modal__body">Por favor, completa los siguientes<br>campos antes de continuar</p>
+        <ul class="validation-modal__list" id="validation-modal-list"></ul>
+        <button class="btn btn-primary btn-full validation-modal__btn" id="validation-modal-ok">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de conflicto (email / usuario ya en uso) -->
+  <div id="conflict-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="conflict-modal-title">
+    <div class="modal validation-modal-card">
+      <div class="validation-modal__frame">
+        <i class="vm-corner vm-corner--tl" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--tr" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--bl" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--br" aria-hidden="true"></i>
+        <h2 class="validation-modal__title" id="conflict-modal-title">Ya<br>Registrado</h2>
+        <div class="validation-modal__divider">✦</div>
+        <p class="validation-modal__body">Los siguientes datos<br>ya están en uso</p>
+        <ul class="validation-modal__list" id="conflict-modal-list"></ul>
+        <button class="btn btn-primary btn-full validation-modal__btn" id="conflict-modal-ok">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de contraseña inválida -->
+  <div id="password-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="password-modal-title">
+    <div class="modal validation-modal-card">
+      <div class="validation-modal__frame">
+        <i class="vm-corner vm-corner--tl" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--tr" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--bl" aria-hidden="true"></i>
+        <i class="vm-corner vm-corner--br" aria-hidden="true"></i>
+        <h2 class="validation-modal__title" id="password-modal-title">Contraseña<br>Inválida</h2>
+        <div class="validation-modal__divider">✦</div>
+        <p class="validation-modal__body">La contraseña no cumple<br>los requisitos necesarios</p>
+        <ul class="validation-modal__list" id="password-modal-list"></ul>
+        <button class="btn btn-primary btn-full validation-modal__btn" id="password-modal-ok">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts compartidos -->
+  <script src="../../shared/js/config.js"></script>
+  <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/api.js"></script>
+  <script src="../../shared/js/auth.js"></script>
+  <script src="../../shared/js/main.js"></script>
+  <!-- Script de página -->
+  <script src="./register.js"></script>
+
+</body>
+</html>
