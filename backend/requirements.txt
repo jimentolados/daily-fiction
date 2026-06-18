@@ -1,5 +1,4 @@
 # Framework principal
-# Nota: Django 4.2 LTS es compatible con MariaDB 10.4 (XAMPP)
 Django==4.2.20
 djangorestframework==3.15.2
 
@@ -9,11 +8,11 @@ django-cors-headers==4.3.1
 # Autenticación JWT
 djangorestframework-simplejwt==5.3.1
 
-# Base de datos MySQL/MariaDB (producción)
-mysqlclient==2.2.8
-
-# Base de datos PostgreSQL (desarrollo / Docker)
+# Base de datos PostgreSQL (dev Docker + producción Render)
 psycopg2-binary==2.9.10
+
+# Base de datos MySQL/MariaDB (legacy local)
+mysqlclient==2.2.8
 
 # Llamadas HTTP a APIs externas
 requests==2.32.5
@@ -26,3 +25,8 @@ Pillow==12.1.1
 
 # Tareas programadas (cron)
 django-crontab==0.7.1
+
+# Producción
+gunicorn==22.0.0
+dj-database-url==2.2.0
+whitenoise==6.7.0

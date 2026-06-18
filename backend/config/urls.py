@@ -4,6 +4,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.views.static import serve as static_serve
+from django.http import JsonResponse
+
+
+def health(_request):
+    return JsonResponse({'status': 'ok'})
 
 FRONTEND_DIR = settings.BASE_DIR.parent / 'frontend'
 
@@ -13,6 +18,7 @@ admin.site.site_title = 'Daily Fiction Admin'
 admin.site.index_title = 'Panel de control'
 
 urlpatterns = [
+    path('health/', health),
     path('admin/', admin.site.urls),
     path('api/v1/auth/', include('apps.users.urls')),
     path('api/v1/movies/', include('apps.movies.urls')),
