@@ -11,9 +11,6 @@ djangorestframework-simplejwt==5.3.1
 # Base de datos PostgreSQL (dev Docker + producción Render)
 psycopg2-binary==2.9.10
 
-# Base de datos MySQL/MariaDB (legacy local)
-mysqlclient==2.2.8
-
 # Llamadas HTTP a APIs externas
 requests==2.32.5
 
