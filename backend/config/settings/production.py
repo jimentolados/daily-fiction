@@ -6,13 +6,16 @@ DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
-# Base de datos: Render inyecta DATABASE_URL automáticamente
+# Base de datos: Neon pausa tras 5 min; conn_max_age=0 evita conexiones muertas
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', ''),
-        conn_max_age=600,
-        ssl_require=True,
-    )
+    'default': {
+        **dj_database_url.config(
+            default=os.environ.get('DATABASE_URL', ''),
+            conn_max_age=0,
+            ssl_require=True,
+        ),
+        'CONN_HEALTH_CHECKS': True,
+    }
 }
 
 # WhiteNoise: sirve los estáticos del admin sin S3
@@ -38,3 +41,14 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+
+# Errores visibles en Render Application logs
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {'console': {'class': 'logging.StreamHandler'}},
+    'loggers': {
+        'django': {'handlers': ['console'], 'level': 'ERROR', 'propagate': False},
+        'django.request': {'handlers': ['console'], 'level': 'ERROR', 'propagate': False},
+    },
+}

@@ -19,5 +19,6 @@ class Command(BaseCommand):
             self.stdout.write('Superuser already exists — skipping.')
             return
 
-        User.objects.create_superuser(email=email, password=password)
-        self.stdout.write(self.style.SUCCESS(f'Superuser {email} created.'))
+        username = email.split('@')[0]
+        User.objects.create_superuser(username=username, email=email, password=password)
+        self.stdout.write(self.style.SUCCESS(f'Superuser {email} (username={username}) created.'))
