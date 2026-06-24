@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: daily-fiction
+    name: daily-fiction-api
     runtime: python
     pythonVersion: "3.12.0"
     buildCommand: >-
@@ -24,11 +24,11 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: ALLOWED_HOSTS
-        value: daily-fiction.onrender.com
+        value: daily-fiction-api.onrender.com
       - key: CORS_ALLOWED_ORIGINS
         value: https://daily-fiction.vercel.app
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://daily-fiction.onrender.com,https://daily-fiction.vercel.app
+        value: https://daily-fiction-api.onrender.com,https://daily-fiction.vercel.app
       # APIs externas — rellena en el dashboard de Render
       - key: TMDB_API_KEY
         sync: false
