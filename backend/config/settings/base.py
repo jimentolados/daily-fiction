@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
+from corsheaders.defaults import default_headers
 
 # BASE_DIR apunta a backend/
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
