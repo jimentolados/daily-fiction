@@ -16,6 +16,8 @@
 
 Las pistas pueden ser: fotograma, director, actor principal, año, puntuación en Rotten Tomatoes, número de Óscars, frase icónica, género, duración, país de producción o guionista.
 
+**[→ Jugar ahora](https://daily-fiction.vercel.app)** — no hace falta cuenta, se puede jugar directamente como anónimo.
+
 ---
 
 ## Stack técnico
@@ -24,7 +26,7 @@ Las pistas pueden ser: fotograma, director, actor principal, año, puntuación e
 |------|-----------|
 | Backend | Python 3.12 · Django 4.2 LTS · Django REST Framework |
 | Auth | JWT (simplejwt) · Google OAuth 2.0 |
-| Base de datos | PostgreSQL 16 (Docker / desarrollo) · MariaDB 10.4 (producción) |
+| Base de datos | PostgreSQL 16 (Docker / desarrollo) · PostgreSQL en Neon (producción) |
 | Frontend | HTML5 · CSS3 · JavaScript vanilla |
 | APIs externas | TMDb · OMDb · Wikidata |
 | Infraestructura | Docker · docker-compose |
@@ -205,9 +207,9 @@ El frontend es HTML/CSS/JS puro servido desde el sistema de archivos local (sin 
 
 Permite jugar sin cuenta sin necesidad de sesiones del servidor. El `session_key` es un UUID generado en el frontend y almacenado en `localStorage`. Se envía en un header custom, lo que es explícito y no interfiere con el flujo de autenticación JWT.
 
-### ¿Por qué PostgreSQL en desarrollo y MariaDB en producción?
+### ¿Por qué PostgreSQL en todos los entornos?
 
-El hosting de producción disponible incluye MariaDB 10.4. Django 4.2 LTS es compatible con ambos. El modelo de datos no usa ninguna característica exclusiva de PostgreSQL (excepto la query de ranking con `Window(Rank())`, que también soporta MariaDB 10.6+).
+El backend corre sobre PostgreSQL 16 en desarrollo (Docker) y PostgreSQL en producción (Neon serverless + Render). Usar el mismo motor en ambos entornos elimina la clase de bugs que aparecen por diferencias entre bases de datos — especialmente relevante para la query de ranking con `Window(Rank())`.
 
 ### ¿Por qué ranking con `Window(expression=Rank())`?
 
