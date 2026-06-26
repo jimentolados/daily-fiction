@@ -72,7 +72,7 @@ class MovieBuilder:
             'oscar_wins':         omdb_data.get('oscar_wins', 0),
             'oscar_nominations':  omdb_data.get('oscar_nominations', 0),
             'rt_score':           omdb_data.get('rt_score'),
-            'oscar_categories':   self.wikidata.get_oscar_categories(omdb_data.get('omdb_id', '')),
+            'oscar_categories':   {},
             'is_candidate':       True,
         }
 

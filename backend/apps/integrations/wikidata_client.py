@@ -142,21 +142,21 @@ class WikidataClient:
             return {'won': [], 'nominated': []}
 
         query = QUERY_TEMPLATE.format(imdb_id=imdb_id)
-        for attempt in range(3):
+        for attempt in range(2):
             try:
                 r = self.session.get(
                     SPARQL_URL,
                     params={'query': query, 'format': 'json'},
-                    timeout=30,
+                    timeout=8,
                 )
                 r.raise_for_status()
                 results = r.json().get('results', {}).get('bindings', [])
                 break
             except requests.RequestException as e:
                 logger.warning(f'Wikidata error para {imdb_id} (intento {attempt+1}): {e}')
-                if attempt < 2:
+                if attempt < 1:
                     import time
-                    time.sleep(3)
+                    time.sleep(1)
                 else:
                     return {'won': [], 'nominated': []}
 
