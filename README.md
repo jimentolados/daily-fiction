@@ -2,6 +2,8 @@
 
 > Adivina la película del día con hasta 4 pistas progresivas. Un reto nuevo cada 24 horas.
 
+🌐 **[Demo en vivo](https://daily-fiction.vercel.app)** · 👤 **[LinkedIn](https://www.linkedin.com/in/alvarojimenezcorrales)**
+
 ![CI](https://github.com/jimentolados/daily-fiction/actions/workflows/ci.yml/badge.svg)
 
 ![Daily Fiction en juego](docs/screenshots/quiz.png)
@@ -231,7 +233,7 @@ Cobertura de los casos críticos de negocio:
 
 ## Roadmap
 
-- [ ] Despliegue en producción con dominio propio
+- [x] Despliegue en producción (Render + Vercel)
 - [ ] Modo mobile-first con PWA (offline support)
 - [ ] Estadísticas históricas del usuario (distribución de pistas)
 - [ ] API pública documentada con Swagger/OpenAPI
